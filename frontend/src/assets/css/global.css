@@ -1,0 +1,355 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+}
+
+/* Défilement en douceur (remontée au changement de page, ancres) ; Next 16 ne l'écrase plus pendant la navigation */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Animations partagées : opacité et transform seulement */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes flash-moved {
+  from {
+    background-color: var(--color-highlight);
+  }
+}
+
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--color-title);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-accent);
+  transition: var(--transition-colors), text-decoration-color var(--duration-fast) var(--ease-out);
+  text-underline-offset: var(--space-1);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration-thickness: var(--border-width-strong);
+}
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Mise en page partagée */
+.page {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4) var(--space-8);
+  display: grid;
+  gap: var(--space-6);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width), 1fr));
+  gap: var(--space-3);
+}
+
+.split {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.sr-only {
+  position: absolute;
+  width: var(--border-width);
+  height: var(--border-width);
+  margin: calc(var(--border-width) * -1);
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: var(--space-2);
+  z-index: var(--z-skip-link);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+  color: var(--color-on-accent);
+}
+
+/* Liste en boîte (EntityList, InteractionList) */
+.list-box {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.list-box__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  transition: var(--transition-lift);
+}
+
+.list-box__item:is(:hover, :has(:focus-visible)) {
+  background: var(--color-surface-sunken);
+}
+
+.list-box__item + .list-box__item {
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.list-box__main {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* Élévation au survol/focus des éléments cliquables : ombre via ::after (opacité), pas de changement de taille */
+.stat-card--link,
+.list-box__item,
+.kanban-board__card {
+  position: relative;
+}
+
+.stat-card--link::after,
+.list-box__item::after,
+.kanban-board__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: var(--shadow-lift);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.stat-card--link:is(:hover, :focus-visible),
+.list-box__item:is(:hover, :has(:focus-visible)),
+.kanban-board__card:is(:hover, :has(:focus-visible)) {
+  z-index: var(--z-raised);
+  transform: translateY(var(--lift-distance));
+}
+
+.stat-card--link:is(:hover, :focus-visible)::after,
+.list-box__item:is(:hover, :has(:focus-visible))::after,
+.kanban-board__card:is(:hover, :has(:focus-visible))::after {
+  opacity: 1;
+}
+
+/* Teinte d'un statut : les composants lisent --tone et --tone-bg */
+.status--a_postuler {
+  --tone: var(--status-a_postuler-fg);
+  --tone-bg: var(--status-a_postuler-bg);
+}
+
+.status--envoyee {
+  --tone: var(--status-envoyee-fg);
+  --tone-bg: var(--status-envoyee-bg);
+}
+
+.status--relancee {
+  --tone: var(--status-relancee-fg);
+  --tone-bg: var(--status-relancee-bg);
+}
+
+.status--entretien {
+  --tone: var(--status-entretien-fg);
+  --tone-bg: var(--status-entretien-bg);
+}
+
+.status--offre {
+  --tone: var(--status-offre-fg);
+  --tone-bg: var(--status-offre-bg);
+}
+
+.status--refus {
+  --tone: var(--status-refus-fg);
+  --tone-bg: var(--status-refus-bg);
+}
+
+.status--sans_reponse {
+  --tone: var(--status-sans_reponse-fg);
+  --tone-bg: var(--status-sans_reponse-bg);
+}
+
+/* Bloc d'erreur (formulaires, Kanban) */
+.alert:empty {
+  display: none;
+}
+
+.alert {
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-danger);
+  border-radius: var(--radius-sm);
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  font-weight: var(--font-weight-bold);
+  animation: fade-in var(--duration-base) var(--ease-out) backwards;
+}
+
+/* Style de champ (Field, select du Kanban) */
+.control {
+  min-height: var(--size-touch);
+  border: 0;
+  border-bottom: var(--border-width-strong) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-field-bg);
+  color: var(--color-text);
+  font: inherit;
+  transition: var(--transition-colors);
+}
+
+.control:focus {
+  border-bottom-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+/* Boutons et liens-boutons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-touch);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+
+.btn:hover {
+  background: var(--color-surface-sunken);
+  color: var(--color-accent-hover);
+}
+
+.btn:disabled {
+  cursor: progress;
+  opacity: var(--opacity-disabled);
+}
+
+.btn--primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.btn--primary:hover {
+  border-color: var(--color-accent-hover);
+  background: var(--color-accent-hover);
+  color: var(--color-on-accent);
+}
+
+.btn--danger {
+  border-color: var(--color-danger);
+  background: transparent;
+  color: var(--color-danger);
+}
+
+.btn--danger:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+  color: var(--color-on-danger);
+}
+
+.btn:active {
+  background: var(--color-highlight);
+}
+
+.btn--primary:active {
+  border-color: var(--color-accent-active);
+  background: var(--color-accent-active);
+}
+
+.btn--danger:active {
+  border-color: var(--color-danger-active);
+  background: var(--color-danger-active);
+}
+
+.btn--small {
+  min-height: var(--size-compact);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-6) var(--space-6) var(--space-10);
+  }
+
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-card--link:is(:hover, :focus-visible),
+  .list-box__item:is(:hover, :has(:focus-visible)),
+  .kanban-board__card:is(:hover, :has(:focus-visible)) {
+    transform: none;
+  }
+
+  @keyframes grow-y {
+    from {
+      opacity: 0;
+    }
+  }
+}

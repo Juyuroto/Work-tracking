@@ -1,0 +1,99 @@
+.nav {
+  background: var(--color-bg);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.nav__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-3) var(--space-4) 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.nav__brand {
+  font-family: var(--font-body);
+  color: var(--color-title);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Repère de positionnement du trait glissant */
+.nav__menu {
+  position: relative;
+}
+
+.nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link {
+  /* flex et non inline-flex : pas d'espace de jambage sous le lien, le trait se pose sur le séparateur */
+  display: flex;
+  align-items: center;
+  min-height: var(--size-touch);
+  padding-inline: var(--space-3);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+.nav__link:hover {
+  background: var(--color-surface-sunken);
+  color: var(--color-accent);
+}
+
+.nav__link[aria-current='page'] {
+  color: var(--color-accent);
+}
+
+/* Avant l'hydratation (ou sans JS) : trait fixe au même endroit que le trait glissant, sans prendre de place */
+.nav__menu:not(:has(.nav__indicator)) .nav__link[aria-current='page'] {
+  box-shadow: inset 0 calc(var(--border-width-strong) * -1) var(--color-accent);
+}
+
+/* Trait de l'onglet actif : un seul élément, déplacé et étiré en transform uniquement.
+   Base de 1px de large, étirée à la largeur mesurée du lien (scaleX). */
+.nav__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--unit-px);
+  height: var(--border-width-strong);
+  background: var(--color-accent);
+  transform-origin: left;
+  transform: translate(calc(var(--x) * var(--unit-px)), calc(var(--y) * var(--unit-px) - var(--border-width-strong)))
+    scaleX(var(--w));
+  pointer-events: none;
+}
+
+/* Pas d'animation au premier placement : le trait apparaît directement sous l'onglet actif */
+.nav__indicator--ready {
+  transition:
+    transform var(--duration-slide) var(--ease-slide),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.nav__indicator--hidden {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__indicator--ready {
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+}
+
+@media (min-width: 768px) {
+  .nav__inner {
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: end;
+    padding-inline: var(--space-6);
+  }
+}

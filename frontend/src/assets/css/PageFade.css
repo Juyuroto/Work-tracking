@@ -1,0 +1,6 @@
+/* Reprend la grille de .page : un seul enfant, donc rien ne bouge */
+.page-fade {
+  display: grid;
+  gap: var(--space-6);
+  animation: fade-in var(--duration-fast) var(--ease-out);
+}

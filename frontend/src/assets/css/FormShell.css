@@ -1,0 +1,51 @@
+.form-shell {
+  display: grid;
+  gap: var(--space-4);
+  max-width: var(--form-max-width);
+}
+
+.form-shell__fields {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.form-shell__hint {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Les deux libellés occupent la même cellule : le bouton garde la largeur du plus long */
+.form-shell__label {
+  display: inline-grid;
+}
+
+.form-shell__label > * {
+  grid-area: 1 / 1;
+  text-align: center;
+}
+
+.form-shell__label > .form-shell__label--hidden {
+  visibility: hidden;
+}
+
+.form-shell__pending {
+  animation: pulse var(--duration-slow) var(--ease-out) infinite alternate;
+}
+
+@keyframes pulse {
+  to {
+    opacity: var(--opacity-pulse);
+  }
+}
+
+.form-shell__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .form-shell__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

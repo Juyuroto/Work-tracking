@@ -1,0 +1,17 @@
+CLAUDE.md
+.claude/
+node_modules
+.next
+data/
+*.db*
+*.age
+*.gpg
+.env
+.env.*
+!.env.example
+*.bak
+*.pem
+*.key
+__pycache__/
+.venv/
+compose.dev.yml

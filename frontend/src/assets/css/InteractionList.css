@@ -1,0 +1,20 @@
+.list-box__item.interaction-list__item {
+  align-items: flex-start;
+}
+
+.interaction-list__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  font-weight: var(--font-weight-bold);
+}
+
+.interaction-list__kind {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-regular);
+}
+
+.interaction-list__summary {
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}

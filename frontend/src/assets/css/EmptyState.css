@@ -1,0 +1,17 @@
+.empty-state {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-4);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+
+.empty-state__title {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+}
+
+.empty-state__text {
+  color: var(--color-text-muted);
+}

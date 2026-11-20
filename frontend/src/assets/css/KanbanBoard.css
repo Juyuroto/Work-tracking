@@ -1,0 +1,105 @@
+.kanban-board__feedback:not(:empty) {
+  margin-bottom: var(--space-3);
+}
+
+.kanban-board {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.kanban-board__column {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-top: var(--border-width-strong) solid var(--tone, var(--color-border-strong));
+  border-radius: var(--radius-md);
+  background: var(--color-surface-sunken);
+  outline: var(--focus-ring-width) dashed transparent;
+  outline-offset: calc(var(--focus-ring-offset) * -1);
+  transition: background-color var(--duration-base) var(--ease-out), outline-color var(--duration-base) var(--ease-out);
+}
+
+.kanban-board__column--over {
+  background: var(--color-highlight);
+  outline-color: var(--color-accent);
+}
+
+.kanban-board__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+}
+
+.kanban-board__count {
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+}
+
+.kanban-board__empty {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.kanban-board__cards {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kanban-board__card {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  transition: var(--transition-lift), opacity var(--duration-fast) var(--ease-out);
+}
+
+.kanban-board__card:is(:hover, :has(:focus-visible)) {
+  border-color: var(--color-accent);
+}
+
+.kanban-board__card--moved {
+  animation: flash-moved var(--duration-flash) var(--ease-out);
+}
+
+.kanban-board__card--dragging {
+  opacity: var(--opacity-dragging);
+  box-shadow: var(--shadow-drag);
+}
+
+.kanban-board__link {
+  font-weight: var(--font-weight-bold);
+  overflow-wrap: anywhere;
+}
+
+.kanban-board__company,
+.kanban-board__next {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.kanban-board__select {
+  margin-top: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+@media (min-width: 768px) {
+  .kanban-board {
+    grid-auto-flow: column;
+    grid-auto-columns: var(--kanban-col-width);
+    align-items: start;
+    padding-bottom: var(--space-3);
+    overflow-x: auto;
+  }
+}

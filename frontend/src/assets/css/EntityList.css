@@ -1,0 +1,9 @@
+.entity-list__title {
+  font-weight: var(--font-weight-bold);
+  overflow-wrap: anywhere;
+}
+
+.entity-list__meta {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}

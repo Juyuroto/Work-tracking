@@ -1,0 +1,7 @@
+FROM node:22.22.3-alpine3.24
+# dossiers au nom de node : les volumes nommés montés dessus héritent des droits
+RUN apk add --no-cache tzdata && mkdir -p /app/node_modules /app/.next && chown -R node:node /app
+ENV TZ=Europe/Paris NEXT_TELEMETRY_DISABLED=1
+WORKDIR /app
+USER node
+CMD ["sh", "-c", "npm install && exec node_modules/.bin/next dev -H 0.0.0.0"]

@@ -1,0 +1,87 @@
+.weekly-chart {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.weekly-chart__caption {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.weekly-chart__bars {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weekly-chart__col {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.weekly-chart__count {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  transition: var(--transition-colors);
+}
+
+.weekly-chart__col:hover .weekly-chart__count {
+  color: var(--color-title);
+}
+
+.weekly-chart__track {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: var(--chart-height);
+  border-bottom: var(--border-width) solid var(--color-border-strong);
+}
+
+.weekly-chart__bar {
+  display: block;
+  width: var(--bar-width);
+  height: calc(var(--bar-ratio) * 100%);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transform-origin: bottom;
+  animation: grow-y var(--duration-base) var(--ease-out) backwards;
+  transition: var(--transition-colors);
+}
+
+.weekly-chart__col:hover .weekly-chart__bar {
+  background: var(--color-accent-hover);
+}
+
+.weekly-chart__label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+@media (min-width: 768px) {
+  .weekly-chart {
+    padding: var(--space-5);
+  }
+
+  .weekly-chart__bars {
+    gap: var(--space-3);
+  }
+
+  .weekly-chart__label {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}

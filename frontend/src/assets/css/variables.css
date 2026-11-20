@@ -1,0 +1,146 @@
+:root {
+  color-scheme: light dark;
+
+  /* Direction : inspirée du Système de Design de l'État (DSFR), sans ses marques ni sa police.
+     Valeurs issues de @gouvfr/dsfr 1.12 (core.css / scheme.css). */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f6f6f6;
+  --color-field-bg: #eeeeee;
+  --color-text: #3a3a3a;
+  --color-title: #161616;
+  --color-text-muted: #666666;
+  --color-border: #dddddd;
+  --color-border-strong: #3a3a3a;
+  --color-accent: #000091;
+  --color-accent-hover: #1212ff;
+  --color-accent-active: #000072;
+  --color-on-accent: #ffffff;
+  --color-focus: #0a76f6;
+  --color-highlight: #e8edff;
+  --color-danger: #ce0500;
+  --color-danger-active: #a30400;
+  --color-danger-bg: #ffe9e9;
+  --color-danger-text: #9a0400;
+  --color-on-danger: #ffffff;
+
+  /* Statuts : fond clair + texte foncé de la même teinte (contraste ≥ 4.5:1) */
+  --status-a_postuler-bg: var(--color-field-bg);
+  --status-a_postuler-fg: var(--color-text);
+  --status-envoyee-bg: var(--color-highlight);
+  --status-envoyee-fg: #0063cb;
+  --status-relancee-bg: #ffe9e6;
+  --status-relancee-fg: #b34000;
+  --status-entretien-bg: #dffee6;
+  --status-entretien-fg: #18753c;
+  --status-offre-bg: #b8fec9;
+  --status-offre-fg: #0d5c2b;
+  --status-refus-bg: var(--color-danger-bg);
+  --status-refus-fg: var(--color-danger);
+  --status-sans_reponse-bg: #e5e5e5;
+  --status-sans_reponse-fg: #3a3a3a;
+
+  /* Typographie */
+  --font-body: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 2.5rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --line-height-base: 1.5;
+  --line-height-tight: 1.25;
+
+  /* Espacements */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+
+  /* Divers */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-badge: 0.25rem;
+  --border-width: 1px;
+  --border-width-strong: 2px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --shadow-sm: none;
+  --duration-fast: 150ms;
+  --duration-base: 150ms;
+  --duration-slow: 400ms;
+  --duration-slide: 300ms;
+  --duration-flash: 600ms;
+  --ease-slide: cubic-bezier(0.65, 0, 0.35, 1);
+  --unit-px: 1px; /* convertit un nombre mesuré en JS (offsetLeft…) en px dans un calc() */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --transition-colors: color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+  --shadow-lift: 0 0.25rem 0.5rem rgb(0 0 0 / 0.15);
+  --transition-lift: var(--transition-colors), transform var(--duration-fast) var(--ease-out);
+  --shadow-drag: 0 0.25rem 0.75rem rgb(0 0 0 / 0.2);
+  --size-touch: 2.75rem;
+  --size-compact: 2rem;
+  --container-max: 72rem;
+  --form-max-width: 48rem;
+  --chart-height: 10rem;
+  --kanban-col-width: 17rem;
+  --card-min-width: 9rem;
+  --bar-width: 70%;
+  --opacity-disabled: 0.7;
+  --opacity-dragging: 0.5;
+  --opacity-pulse: 0.5;
+  --z-skip-link: 10;
+  --z-raised: 1;
+  --lift-distance: -2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #161616;
+    --color-surface: #242424;
+    --color-surface-sunken: #1e1e1e;
+    --color-field-bg: #2a2a2a;
+    --color-text: #cecece;
+    --color-title: #ffffff;
+    --color-text-muted: #929292;
+    --color-border: #353535;
+    --color-border-strong: #cecece;
+    --color-accent: #8585f6;
+    --color-accent-hover: #b1b1f9;
+    --color-accent-active: #6a6af4;
+    --color-on-accent: #161616;
+    --color-highlight: #1d2437;
+    --color-danger: #ff5655;
+    --color-danger-active: #ff8584;
+    --color-danger-bg: #391c1c;
+    --color-danger-text: #ffb4b3;
+    --color-on-danger: #161616;
+
+    --status-envoyee-fg: #518fff;
+    --status-relancee-bg: #361e19;
+    --status-relancee-fg: #fc5d00;
+    --status-entretien-bg: #19271d;
+    --status-entretien-fg: #27a658;
+    --status-offre-bg: #1f3d29;
+    --status-offre-fg: #6fdc96;
+    --status-sans_reponse-bg: #353535;
+    --status-sans_reponse-fg: #e5e5e5;
+  }
+}
+
+/* Mouvement réduit : plus de déplacements, fondus courts seulement (les @keyframes sont redéfinis dans global.css) */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 100ms;
+    --duration-base: 100ms;
+    --duration-slow: 100ms;
+  }
+}
